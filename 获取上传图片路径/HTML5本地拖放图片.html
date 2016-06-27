@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    .box {width:500px; height:500px;}
+    #box1 {background:red;}
+</style>
+</head>
+<div id="box1" class="box"></div>
+
+<script>
+    var boxDiv;
+    window.onload = function(){
+        boxDiv = document.getElementById("box1");
+        boxDiv.ondragover = function(e){
+            e.preventDefault();
+        }
+        boxDiv.ondrop = function(e){
+            e.preventDefault();
+            var f = e.dataTransfer.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(f);//读取信息	
+            fileReader.onload = function(e){//读取成功
+                  var img = "<img src=\""+e.target.result+"\"/>";
+                  boxDiv.innerHTML = img;
+            }
+        }
+    }
+</script>
+</html>
